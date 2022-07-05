@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.backupanddeploy.mapper.BackupDirMapper">
+
+    <resultMap id="pageBackupDir" type="com.anshare.backupanddeploy.entity.BackupDir">
+        <result column="id" property="id" />
+        <result column="host_ip" property="hostIp" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="port" property="port" />
+        <result column="src_dir" property="srcDir" />
+        <result column="tar_dir" property="tarDir" />
+    </resultMap>
+
+    <select id="findPage" resultMap="pageBackupDir">
+        select id,host_ip,username,password,port,src_dir,tar_dir from sys_backupDir
+        <where>
+            <if test="hostIP != null and hostIP != ''">
+                and sys_backupDir.host_ip like concat('%', #{host_ip} ,'%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
